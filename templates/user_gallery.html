@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Gallery</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #fff; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
+        h1 { margin: 20px 0; color: #333; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif }
+        .gallery { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; padding: 20px; }
+        .card { border: 2px solid #ddd; border-radius: 15px; overflow: hidden; width: 300px; background-color: #fff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.2s, box-shadow 0.2s; position: relative; }
+        .card:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0, 123, 255, 0.6); }
+        .card img { width: 100%; height: 200px; object-fit: cover; border-bottom: 2px solid #ddd; }
+        .status-badge { position: absolute; top: 10px; left: 10px; padding: 5px 10px; border-radius: 4px; font-size: 0.875rem; color: #fff; text-transform: uppercase; }
+        .status-lost { background-color: #e74c3c; }
+        .status-found { background-color: #27ae60; }
+        .status-returned { background-color: #2980b9; }
+        .card-content { padding: 20px; }
+        .card-title { font-size: 1.5rem; margin-bottom: 10px; color: #333; }
+        .card-description { font-size: 1rem; margin-bottom: 15px; color: #666; }
+        .card-info { font-size: 0.875rem; color: #999; margin-bottom: 10px; }
+        .hidden { display: none; }
+
+        #alertBox .bg-green {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        #alertBox .bg-red {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+<h1>FIND YOUR ITEMS HERE</h1>
+<div class="gallery">
+    {% for item in items %}
+    <div class="card">
+        <img src="{{ url_for('static', filename='uploads/' ~ item.image) }}" alt="Item Image">
+        <span class="status-badge status-{{ item.status }}">{{ item.status }}</span>
+        <div class="card-content">
+            <h2 class="card-title">{{ item.name }}</h2>
+            <p class="card-description">{{ item.description }}</p>
+            <p class="card-info"><strong>Category:</strong> {{ item.category }}</p>
+            <p class="card-info"><strong>Date:</strong> {{ item.date }}</p>
+            <p class="card-info"><strong>Location:</strong> {{ item.location }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>
